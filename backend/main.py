@@ -9,10 +9,15 @@ from datastore import import_documents_sample
 from fastapi.middleware.cors import CORSMiddleware
 import uuid
 from fastapi.staticfiles import StaticFiles
+import logging
 
 load_dotenv('.env')
 
 LOCATION = os.getenv("LOCATION")
+
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 # Define Pydantic models for request data
 
@@ -106,7 +111,8 @@ async def upload_file(file: UploadFile = File(...)):
                 status_code=400, detail="Only PDF files are allowed")
 
         file_obj = file.file
-        file_name = f"docs/{file.filename}"
+        #file_name = f"docs/{file.filename}"
+        file_name = f"alphabet-investor-pdfs/{file.filename}"
         public_url = upload_to_gcs(
             file_obj, file_name, content_type="application/pdf")
         return {"file_name": file_name, "url": public_url}
@@ -131,7 +137,9 @@ async def import_data(data: DatastoreImportModel):
     Raises:
         HTTPException: If the Datastore import fails.
     """
+
     try:
+        logger.info(f"Data: {data}")
         bucket_name = os.getenv("BUCKET_NAME")
         full_gcs_path = f"gs://{bucket_name}/{data.pdf_gcs_filename}"
 
@@ -155,7 +163,7 @@ async def import_data(data: DatastoreImportModel):
         actual_filename = data.pdf_gcs_filename.split("/")[1]
         filename_without_extension = actual_filename.split(".")[0]
         ndjson_filename = f"{filename_without_extension}.json"
-
+        logger.info(f'Actual filename: {ndjson_filename}')
         # Create and upload NDJSON file
         with open(ndjson_filename, "w") as ndjson_file:
             json.dump(doc_data, ndjson_file)
@@ -163,6 +171,7 @@ async def import_data(data: DatastoreImportModel):
         with open(ndjson_filename, "r") as ndjson_file:
             ndjson_public_url = upload_to_gcs(
                 ndjson_file, ndjson_filename, content_type="application/json")
+            logger.info(f'NDJSON file uploaded to: {ndjson_public_url}')
 
         uploaded_ndjson_path = f"gs://{bucket_name}/{ndjson_filename}"
         response = import_documents_sample(uploaded_ndjson_path)
