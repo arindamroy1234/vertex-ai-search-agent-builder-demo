@@ -57,6 +57,15 @@ app.add_middleware(
 
 
 # Define API endpoints
+@app.get("/")
+def read_root():
+    """
+    Simple endpoint to check if the API is running.
+
+    Returns:
+        dict: A dictionary with a "status" key set to "running".
+    """
+    return {"status": "running"}
 
 
 @app.get("/ping")
@@ -188,3 +197,7 @@ async def import_data(data: DatastoreImportModel):
 
 # Serve the static files (uncomment only if running locally)
 app.mount("/", StaticFiles(directory="app/static", html=True), name="static")
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000)
