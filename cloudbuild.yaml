@@ -16,7 +16,7 @@ steps:
         "--image",
         "gcr.io/$PROJECT_ID/vertexai-search-demo",
         "--port",
-        "8000",
+        "8080",
         "--platform",
         "managed",
         "--region",
