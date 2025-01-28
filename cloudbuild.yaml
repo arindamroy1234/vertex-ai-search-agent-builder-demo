@@ -22,6 +22,8 @@ steps:
         "--region",
         "us-central1", # Replace with your desired region
         "--allow-unauthenticated",
+        "--timeout",
+        "300"
       ]
 
 images:
