@@ -2,29 +2,29 @@
 FROM nikolaik/python-nodejs:python3.12-nodejs22
 
 # Set working directories
-WORKDIR /app
+WORKDIR /usr/src/app
 
 # Copy backend requirements file and install dependencies
-COPY backend/requirements.txt /app/backend/
-RUN pip install --no-cache-dir -r /app/backend/requirements.txt
+COPY backend/requirements.txt /usr/src/app/backend/
+RUN pip install --no-cache-dir -r /usr/src/app/backend/requirements.txt
 
 # Copy backend source code
-COPY backend /app/backend
+COPY backend /usr/src/app/backend
 
 # Copy frontend package files and install dependencies
-COPY frontend/package.json frontend/package-lock.json /app/frontend/
-RUN cd /app/frontend && npm install
+COPY frontend/package.json frontend/package-lock.json /usr/src/app/frontend/
+RUN cd /usr/src/app/frontend && npm install
 
 # Build the React app
-COPY frontend /app/frontend
-RUN cd /app/frontend && npm run build
+COPY frontend /usr/src/app/frontend
+RUN cd /usr/src/app/frontend && npm run build
 
 # Copy the built React app to a directory served by FastAPI
-RUN mkdir -p /app/backend/app/static
-RUN cp -r /app/frontend/build/* /app/backend/app/static/
+RUN mkdir -p /usr/src/app/backend/app/static
+RUN cp -r /usr/src/app/frontend/build/* /usr/src/app/backend/app/static/
 
 # Set the working directory to the backend
-WORKDIR /app/backend
+WORKDIR /usr/src/app/backend
 
 # Expose the port for the FastAPI app
 EXPOSE 8080
