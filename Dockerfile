@@ -27,7 +27,7 @@ RUN cp -r /usr/src/app/frontend/build/* /usr/src/app/backend/app/static/
 WORKDIR /usr/src/app/backend
 
 # Expose the port for the FastAPI app
-EXPOSE 8000
+EXPOSE 8080
 
 # Run FastAPI and serve the React app
-CMD ["fastapi","run","main.py", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["fastapi","run","main.py", "--host", "0.0.0.0", "--port", "8080"]
