@@ -12,16 +12,16 @@ RUN pip install --no-cache-dir -r /usr/src/app/backend/requirements.txt
 COPY backend /usr/src/app/backend
 
 # Copy frontend package files and install dependencies
-COPY frontend/package.json frontend/package-lock.json /usr/src/app/frontend/
-RUN cd /usr/src/app/frontend && npm install
+#COPY frontend/package.json frontend/package-lock.json /usr/src/app/frontend/
+#RUN cd /usr/src/app/frontend && npm install
 
 # Build the React app
-COPY frontend /usr/src/app/frontend
-RUN cd /usr/src/app/frontend && npm run build
+#COPY frontend /usr/src/app/frontend
+#RUN cd /usr/src/app/frontend && npm run build
 
 # Copy the built React app to a directory served by FastAPI
-RUN mkdir -p /usr/src/app/backend/app/static
-RUN cp -r /usr/src/app/frontend/build/* /usr/src/app/backend/app/static/
+#RUN mkdir -p /usr/src/app/backend/app/static
+#RUN cp -r /usr/src/app/frontend/build/* /usr/src/app/backend/app/static/
 
 # Set the working directory to the backend
 WORKDIR /usr/src/app/backend
