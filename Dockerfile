@@ -16,7 +16,7 @@ COPY frontend/package.json frontend/package-lock.json /app/frontend/
 RUN cd /app/frontend && npm install
 
 # Build the React app
-COPY frontend /usr/src/app/frontend
+COPY frontend /app/frontend
 RUN cd /app/frontend && npm run build
 
 # Copy the built React app to a directory served by FastAPI
