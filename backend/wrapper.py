@@ -5,11 +5,11 @@ import logging
 # A decorator function that takes in any number of argument
 
 coloredlogs.install()
-logger = logging.getLogger("Cymbal Search Application")
+logger = logging.getLogger("HF Document Search Application")
 
 logger.setLevel(logging.DEBUG)
 
-logger.info("Starting Cymbal Search Application")
+logger.info("Starting HF Doc Search Application")
 
 
 def log_data(func):
