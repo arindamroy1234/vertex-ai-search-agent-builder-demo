@@ -24,15 +24,15 @@ jobs:
       run: gcloud auth configure-docker
 
     - name: Build Docker image
-      run: docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/vertexai-search-demo .
+      run: docker build -t us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/vertexai-search-demo .
 
     - name: Push Docker image
-      run: docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/vertexai-search-demo
+      run: docker push us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/vertexai-search-demo
 
     - name: Deploy to Cloud Run
       run: |
         gcloud run deploy vertexai-search-demo \
-          --image gcr.io/${{ secrets.GCP_PROJECT_ID }}/vertexai-search-demo \
+          --image us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/vertexai-search-demo \
           --platform managed \
           --region us-central1 \
           --allow-unauthenticated \
