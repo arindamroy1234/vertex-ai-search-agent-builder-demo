@@ -1,0 +1,1 @@
+{"Modules":[{"Key":"","Source":"","Dir":"."},{"Key":"cloud_run","Source":"./modules/cloud_run","Dir":"modules/cloud_run"},{"Key":"iam","Source":"./modules/iam","Dir":"modules/iam"},{"Key":"storage","Source":"./modules/storage","Dir":"modules/storage"},{"Key":"vertex_ai","Source":"./modules/vertex_ai","Dir":"modules/vertex_ai"}]}

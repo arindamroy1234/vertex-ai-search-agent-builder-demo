@@ -1,0 +1,13 @@
+# Ignore .bin files and directories
+*.bin
+bin/
+node_modules/
+.DS_Store
+*.log
+*.tmp
+*.swp
+*.tfstate
+*.tfstate.backup
+*.lock.hcl
+*.txt
+*.exe
