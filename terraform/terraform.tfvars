@@ -1,0 +1,8 @@
+project_id   = "doc-search-agent-39710"
+region       = "us-central1"
+bucket_name  = "ari-doc-storage-01-39710"
+service_name = "demo-doc-search-39710"
+image        = "us-docker.pkg.dev/cloudrun/container/hello"
+service_account_id = "ari-demo-doc-search-sa01-39710"
+data_store_name   = "demo-doc-store-39710"
+collection_id     = "default_collection"
