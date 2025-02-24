@@ -1,33 +1,42 @@
 steps:
   # Step 1: Build the Docker image
   - name: "gcr.io/cloud-builders/docker"
-    args: ["build", "-t", "gcr.io/$PROJECT_ID/vertexai-search-demo", "."]
+    args: [
+      "build",
+      "-t", "gcr.io/${_PROJECT_ID}/doc-search-demo-39710",
+      "--build-arg", "PROJECT_ID=${_PROJECT_ID}",
+      "--build-arg", "LOCATION=${_LOCATION}",
+      "--build-arg", "DATASTORE_ID=${_DATASTORE_ID}",
+      "--build-arg", "AGENT_APPLICATION_ID=${_AGENT_APPLICATION_ID}",
+      "--build-arg", "BUCKET_NAME=${_BUCKET_NAME}",
+      "."
+    ]
 
   # Step 2: Push the Docker image to Google Container Registry
   - name: "gcr.io/cloud-builders/docker"
-    args: ["push", "gcr.io/$PROJECT_ID/vertexai-search-demo"]
+    args: ["push", "gcr.io/${_PROJECT_ID}/doc-search-demo-39710"]
 
   # Step 3: Deploy the Docker image to Google Cloud Run
   - name: "gcr.io/cloud-builders/gcloud"
     args: [
-        "run",
-        "deploy",
-        "vertexai-search-demo",
-        "--image",
-        "gcr.io/$PROJECT_ID/vertexai-search-demo",
-        "--port",
-        "8080",
-        "--platform",
-        "managed",
-        "--region",
-        "us-central1", # Replace with your desired region
-        "--allow-unauthenticated",
-        "--timeout",
-        "600"
-      ]
+      "run",
+      "deploy",
+      "doc-search-demo-39710",
+      "--image",
+      "gcr.io/${_PROJECT_ID}/doc-search-demo-39710",
+      "--port",
+      "8080",
+      "--platform",
+      "managed",
+      "--region",
+      "us-central1", # Replace with your desired region
+      "--allow-unauthenticated",
+      "--timeout",
+      "600"
+    ]
 
 images:
-  - "gcr.io/$PROJECT_ID/vertexai-search-demo"
+  - "gcr.io/${_PROJECT_ID}/doc-search-demo-39710"
 
 options:
   defaultLogsBucketBehavior: REGIONAL_USER_OWNED_BUCKET
