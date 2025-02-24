@@ -16,12 +16,14 @@ steps:
         "--image",
         "gcr.io/$PROJECT_ID/vertexai-search-demo",
         "--port",
-        "8000",
+        "8080",
         "--platform",
         "managed",
         "--region",
-        "asia-southeast1", # Replace with your desired region
+        "us-central1", # Replace with your desired region
         "--allow-unauthenticated",
+        "--timeout",
+        "600"
       ]
 
 images:

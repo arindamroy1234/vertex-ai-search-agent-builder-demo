@@ -57,8 +57,6 @@ app.add_middleware(
 
 
 # Define API endpoints
-
-
 @app.get("/ping")
 async def ping():
     """
